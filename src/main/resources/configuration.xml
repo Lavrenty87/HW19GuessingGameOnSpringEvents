@@ -5,6 +5,8 @@
        http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <bean id="main" class="ru.learnUp.Main"/>
+    <bean id="miEventLis" class="ru.learnUp.event.MyEventLis"/>
+    <bean id="miEventpub" class="ru.learnUp.event.MyEventPub"/>
 
     <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
         <property name="basename" value="text"/>

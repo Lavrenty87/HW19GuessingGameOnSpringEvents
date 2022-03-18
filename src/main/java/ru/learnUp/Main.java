@@ -5,6 +5,7 @@ import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import ru.learnUp.event.MyEventPub;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -21,28 +22,34 @@ public class Main implements ApplicationContextAware {
         Locale locale = Locale.US;
         Integer secretNam = (int) (Math.random() * 1000);
         System.out.println(secretNam);
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-        try {
+        MyEventPub pub = context.getBean(MyEventPub.class);
+
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
             //System.out.println(context.getMessage("hi", null, locale.ENGLISH));
-            log.info(context.getMessage("hi", null, locale));
+            //log.info(context.getMessage("hi", null, locale));
+            pub.pubEvent(context.getMessage("hi", null, locale));
             int read = Integer.parseInt(reader.readLine());
 
             while (read != secretNam) {
                 if (read < secretNam) {
                     //System.out.println(context.getMessage("bigger", null, locale));
-                    log.info(context.getMessage("bigger", null, locale));
+                    //log.info(context.getMessage("bigger", null, locale));
+                    pub.pubEvent(context.getMessage("bigger", null, locale));
                 }
                 if (read > secretNam){
                     //System.out.println(context.getMessage("less", null, locale));
-                    log.info(context.getMessage("less", null, locale));
+                    //log.info(context.getMessage("less", null, locale));
+                    pub.pubEvent(context.getMessage("less", null, locale));
                 }
                 //System.out.println(context.getMessage("try", null, locale));
-                log.info(context.getMessage("try", null, locale));
+                //log.info(context.getMessage("try", null, locale));
+                pub.pubEvent(context.getMessage("try", null, locale));
                 read = Integer.parseInt(reader.readLine());
             }
-            //System.out.println(context.getMessage("guessed", new Object[]{"" + secretNam}, locale) + secretNam);
-            log.info(context.getMessage("guessed", new Object[]{secretNam.toString()}, locale));
+            //  System.out.println(context.getMessage("guessed", new Object[]{"" + secretNam}, locale) + secretNam);
+            //log.info(context.getMessage("guessed", new Object[]{secretNam.toString()}, locale));
+            pub.pubEvent(context.getMessage("guessed", new Object[]{secretNam.toString()}, locale));
         } catch (IOException e) {
             e.printStackTrace();
         }
