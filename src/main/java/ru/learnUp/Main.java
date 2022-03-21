@@ -47,7 +47,7 @@ public class Main implements ApplicationContextAware {
                 pub.pubEvent(context.getMessage("try", null, locale));
                 read = Integer.parseInt(reader.readLine());
             }
-            //  System.out.println(context.getMessage("guessed", new Object[]{"" + secretNam}, locale) + secretNam);
+            //System.out.println(context.getMessage("guessed", new Object[]{"" + secretNam}, locale) + secretNam);
             //log.info(context.getMessage("guessed", new Object[]{secretNam.toString()}, locale));
             pub.pubEvent(context.getMessage("guessed", new Object[]{secretNam.toString()}, locale));
         } catch (IOException e) {

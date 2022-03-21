@@ -5,7 +5,7 @@ import org.springframework.context.ApplicationEvent;
 
 public class MyEvent extends ApplicationEvent {
 
-    String date;
+    private final String date;
 
     public MyEvent(String date) {
         super(date);
